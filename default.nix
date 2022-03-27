@@ -1,6 +1,6 @@
-{ mkDerivation ? ( import <nixpkgs> {} ).stdenv.mkDerivation
+{ stdenv ? ( import <nixpkgs> {} ).stdenv
 }:
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname   = "sources-test";
   version = "1.0.0";
   srcs = [
