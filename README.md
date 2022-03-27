@@ -8,8 +8,22 @@ Note that setting `sourceRoot` explicitly is necessary to avoid Nix complaining 
 
 Also note that you almost certainly don't want to list a tarball under `srcs` if you plan to use `unpackByCopy` - since it WILL NOT cause tarballs to be copied. Rather Nix's existing `unpackCmdHooks` list will catch tarballs using `_defaultUnpackCmd` which will unzip them under `TMPDIR`. If you do really want to copy tarballs without unzipping them, you could do `unpackCmdHooks=( unpackByCopy )` rather than appending the list of hooks - but you'll obviously lose any other magic unpacking commands that you usually rely on.
 
+### What it allows us to do
+Rather than filtering the source directory down using something like `nix-gitignore`, instead we can simply name source files we want explicitly. For example, the `srcs` list below will produce a source root containing just those two files. This cherry picking style as opposed to something like `src = ./.;` eliminates rebuilds resulting from checksum changes on files which have no "real" effect on package outputs' behavior/content.
+
+```nix
+stdenv.mkDerivation {
+  /* ... */
+  srcs = [
+    ./Makefile
+    ./configure
+  ];
+}
+```
+
 ### Running the example
 Assuming you have `nix` installed, and the `nixpkgs` channel in your `NIX_PATH`:
+
 ```sh
 nix-build;
 cat result/msg;
