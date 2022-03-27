@@ -21,8 +21,4 @@ stdenv.mkDerivation rec {
     }
     unpackCmdHooks+=( unpackByCopy )
   '';
-
-  preBuild = ''
-    makeFlagsArray+=( prefix="$out" )
-  '';
 }
