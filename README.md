@@ -49,7 +49,7 @@ cfg.mk
 configure
 msg
 
-$ ls../*
+$ ls ../*
 ../env-vars
 
 ../sources-test:
@@ -111,7 +111,7 @@ configure
 msg
 sources-test.tar.gz
 
-$ ls../*
+$ ls ../*
 ../env-vars
 
 ../sources-test:
