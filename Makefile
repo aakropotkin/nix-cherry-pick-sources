@@ -22,7 +22,7 @@ $(CURDIR)/msg:
 	echo '$$ ls'     >> $@;  \
 	ls               >> $@;  \
 	echo ''          >> $@;  \
-	echo '$$ ls../*' >> $@;  \
+	echo '$$ ls ../*' >> $@;  \
 	ls ../*          >> $@
 
 install: $(CURDIR)/msg $(DESTDIR)$(prefix)
