@@ -10,15 +10,15 @@ stdenv.mkDerivation rec {
   ];
 
   preUnpack = ''
+    unpackCmdHooks+=( unpackByCopy )
     sourceRoot="''${sourceRoot:-${pname}-${version}-source}"
-    export sourceRoot
+    # If a regular file is given in `srcs', clone it to `sourceDir'
     function unpackByCopy () {
       local fn="$1"
       # Only copy regular files
       test -d "$fn" && return
-      test -d $sourceRoot || mkdir -p $sourceRoot
+      test -d "$sourceRoot" || mkdir -p "$sourceRoot"
       cp -p --reflink=auto -- "$fn" "$sourceRoot/$( stripHash $fn )"
     }
-    unpackCmdHooks+=( unpackByCopy )
   '';
 }
