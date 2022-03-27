@@ -6,17 +6,23 @@ mkDerivation rec {
   srcs = [
     ./Makefile
     ./configure
+    ./sources-test.tar.gz
   ];
+
   preUnpack = ''
+    sourceRoot="''${sourceRoot:-${pname}-${version}-source}"
+    export sourceRoot
     function unpackByCopy () {
-      local fn="$1";
-      local srcRoot="''${sourceRoot:-${pname}-${version}}";
-      test -d $srcRoot || mkdir -p $srcRoot;
-      cp -p --reflink=auto -- "$fn" "$srcRoot/$( stripHash $fn; )";
+      local fn="$1"
+      # Only copy regular files
+      test -d "$fn" && return
+      test -d $sourceRoot || mkdir -p $sourceRoot
+      cp -p --reflink=auto -- "$fn" "$sourceRoot/$( stripHash $fn )"
     }
-    unpackCmdHooks+=( unpackByCopy );
+    unpackCmdHooks+=( unpackByCopy )
   '';
+
   preBuild = ''
-    makeFlagsArray+=( prefix="$out" );
+    makeFlagsArray+=( prefix="$out" )
   '';
 }
