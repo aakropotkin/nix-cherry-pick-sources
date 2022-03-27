@@ -62,6 +62,11 @@ configure
 msg
 ```
 
+Note that if `sourceRoot` had used `pname` in this case rather than the longer
+name I constructed, it would have been merged with the contents of the tarball.
+This can become a problem really quickly, especially considering how many
+source tarballs use their package name in their distributions.
+
 ## "Better" Solution
 This solution is the default produced by `nix-build`, it's main advantage is
 readability/convenience - but it's worth noting that this solution WILL handle
