@@ -8,6 +8,14 @@ Note that setting `sourceRoot` explicitly is necessary to avoid Nix complaining 
 
 Also note that you almost certainly don't want to list a tarball under `srcs` if you plan to use `unpackByCopy` - since it WILL NOT cause tarballs to be copied. Rather Nix's existing `unpackCmdHooks` list will catch tarballs using `_defaultUnpackCmd` which will unzip them under `TMPDIR`. If you do really want to copy tarballs without unzipping them, you could do `unpackCmdHooks=( unpackByCopy )` rather than appending the list of hooks - but you'll obviously lose any other magic unpacking commands that you usually rely on.
 
+### Running the example
+Assuming you have `nix` installed, and the `nixpkgs` channel in your `NIX_PATH`:
+```sh
+nix-build;
+cat result/msg;
+rm result;
+```
+
 ### Results
 The contents of the `msg` file in our derivation look like this ( well at least until I update this repo and forget to update the README.md ):
 
