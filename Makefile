@@ -13,6 +13,7 @@ $(DESTDIR)$(prefix):
 
 $(CURDIR)/msg:
 	echo "Howdy"     >  $@;  \
+	echo ''          >> $@;  \
 	echo '$$ ls'     >> $@;  \
 	ls               >> $@;  \
 	echo ''          >> $@;  \
@@ -24,7 +25,7 @@ $(CURDIR)/msg:
 .PHONY: install
 
 install: $(CURDIR)/msg $(DESTDIR)$(prefix)
-	$(CP) -p --reflink=auto $< $(DESTDIR)$(prefix)/msg
+	$(CP) -p --reflink=auto -- "$<" "$(DESTDIR)$(prefix)/msg"
 
-sources-test.tar.gz: sources-test/baz
-	$(TAR) czf $@ $<
+$(CURDIR)/sources-test.tar.gz: $(CURDIR)/sources-test/baz
+	$(TAR) czf "$@" "$<"
